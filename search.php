@@ -57,7 +57,7 @@
       foreach($resultArray as $key=>$post){
         $index = "post".$key;
         echo "<tr><td>".$post["user_id"]."</td><td>".$post["post_uid"]."</td><td>".$post["post_date"]."</td>";
-        echo "<td><img style='width:100%;' src=".$path.$post["photo_src"]." alt=".$post["tags"].">"."</td>";
+        echo "<td><img style='width:100%;' src=".$path.$post["photo_src"]." alt=".$post["tags"]."><a href='".$path.$post["photo_src"]."' download>Download</a>"."</td>";
         echo "<td>".$post["tags"]."</td><td><span>".$post["addr"]."</span></br><button type='button' class='btn btn-primary' data-bs-toggle='modal' data-bs-target='#".$index."'>Open the map</button>"."</td></tr>";
       }
       echo "</tbody></table>";
