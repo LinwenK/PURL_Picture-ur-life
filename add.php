@@ -32,10 +32,10 @@
             $tags = $_POST['tags'];
             $addr = $_POST['addr'];
             $imgExtension = pathinfo($photo_src['name'])['extension'];
-            print_r ($photo_src);
+            // print_r ($photo_src);
             $imgDest = "./img/$user_id/".str_replace(" ","_",$photo_src['name']);
             $fileName = "./img/$user_id";
-            if(file_exists($fileName)){
+            if(!file_exists($fileName)){
                 mkdir($fileName,0777);
             }
             if($imgExtension == "jpg" && getimagesize($photo_src['tmp_name'])){
@@ -48,7 +48,7 @@
                         }else{
                             $insertCmd = "INSERT INTO post_tb (user_id,post_uid,post_date,photo_src,tags,addr) VALUES ('$user_id','$post_uid','$post_date','$imgDest','$tags','$addr')";
                             if($dbcon->query($insertCmd)===TRUE){
-                                header("Location: http://localhost/php/FINAL_PROJECT/userDisplay.php");
+                                header("Location: http://localhost/php/FINAL_PROJECT/postDisplay.php");
                             }else{
                                 echo "<h1>Post not registered</h1>".$dbcon->error;
                             }
