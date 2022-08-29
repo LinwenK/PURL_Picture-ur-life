@@ -65,7 +65,8 @@
             echo "<td>".$post["post_uid"]."</td>";
             echo "<td>".$post["post_date"]."</td>";
             echo "<td><img style='width:100%;' src=".$path.$post["photo_src"]." alt=".$post["tags"]."><a href='".$path.$post["photo_src"]."' download>Download</a>"."</td>";
-            echo "<td>".$post["tags"]."</td><td><span>".$post["addr"]."</span></br><button type='button' class='btn btn-primary' data-bs-toggle='modal' data-bs-target='#".$index."'>Open the map</button>"."</td></tr>";
+            echo "<td>".$post["tags"]."</td><td><span>".$post["addr"]."</span></br><button type='button' class='btn btn-primary' data-bs-toggle='modal' data-bs-target='#".$index."'>Open the map</button>"."</td>";
+            echo "<td><a href='./add.php'>Add</a></td>";
            
         }
         echo "</tbody></table>";
