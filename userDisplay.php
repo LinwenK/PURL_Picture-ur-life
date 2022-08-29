@@ -29,6 +29,32 @@
             }
         }
     }
+    if(isset($_GET['id']) && isset($_GET['action'])) {
+        $id = $_GET['id'];
+        $dbcon = new mysqli($dbServername,$dbUsername,$dbPass,$dbName);
+        if($dbcon->connect_error){
+            die("connection error");
+        }else{
+            switch($_GET['action']){
+                case "delete":
+                    $delcmd = "DELETE FROM post_tb WHERE user_id='$id'";
+                    if($dbcon->query($delcmd) === TRUE){
+                        echo "<h1>Data deleted</h1>";
+                    }else{
+                        echo "<h1>Action failed</h1>";
+                    }
+                break;
+                case "edit":
+                    $selectuser = "SELECT * FROM post_tb WHERE user_id=$id";
+                    $result = $dbcon->query($selectuser);
+                    $_SESSION['postData'] = $result->fetch_assoc();
+                    $dbcon->close();
+                    header("Location:http://localhost/PHP/FINAL_PROJECT/userEdit.php");
+                break;
+            }
+            $dbcon->close();
+        }
+    }
 
     
 ?>
@@ -67,7 +93,8 @@
             echo "<td><img style='width:100%;' src=".$path.$post["photo_src"]." alt=".$post["tags"]."><a href='".$path.$post["photo_src"]."' download>Download</a>"."</td>";
             echo "<td>".$post["tags"]."</td><td><span>".$post["addr"]."</span></br><button type='button' class='btn btn-primary' data-bs-toggle='modal' data-bs-target='#".$index."'>Open the map</button>"."</td>";
             echo "<td><a href='./add.php'>Add</a></td>";
-           
+            echo "<td><a href='".$_SERVER['PHP_SELF']."?id=".$post['user_id']."&action=edit'>Edit</a></td>";
+            echo "<td><a href='".$_SERVER['PHP_SELF']."?id=".$post['user_id']."&action=delete'>Delete</a></td></tr>";
         }
         echo "</tbody></table>";
 
