@@ -20,7 +20,7 @@
 
         </div>
     </section>
-    <form method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+    <form method="POST" action="<?php "./pages".$reqURL.".php";?>">
         <label>User ID</label>
         <input name="user_id" placeholder="user id" require/>
 
@@ -59,6 +59,7 @@
                 $result = $dbCon->query($insertCmd);
                 if($result === true){
                     echo "<h1 style='color: green;'>Welcome to Purl ! Your account has been created successfully.</h1>";
+                    header("Location: ".parse_url($_SERVER['REQUEST_URI'], PHP_URL_HOST)."/user");
                 }else{
                     echo "<h1 style='color: red;'>".$dbCon->error."</h1>";
                 }

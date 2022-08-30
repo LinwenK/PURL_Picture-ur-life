@@ -15,10 +15,12 @@
                 case "del":
                     $delcmd = "DELETE FROM user_tb WHERE user_id='$id'";
                     if($dbcon->query($delcmd) === true){
-                        echo "<h1>Data deleted</h1>";
+                        echo "<h1>This user deleted</h1>";
                     }else{
                         echo "<h1>Action failure</h1>";
                     }
+                    header("Location: ".parse_url($_SERVER['REQUEST_URI'], PHP_URL_HOST)."/user");
+
                 break;
 
                 case "edit":
@@ -32,8 +34,8 @@
 
                     // print_r($_SESSION['userData']);
 
-                    header("Location: http://localhost/project_me/userEdit.php");
-                break;
+                    header("Location: ".parse_url($_SERVER['REQUEST_URI'], PHP_URL_HOST)."/userEdit");
+                    break;
             }
 
         }
@@ -61,7 +63,7 @@
         </figure>   
         
         <div class="gotoRegister">
-            <a href="/userRegister" >Add User</a>
+            <a href="/userRegister" >Add a User</a>
             <a href="/post" >Post Management</a>
 
         </div>
@@ -110,9 +112,9 @@
 
 
 
-                            echo "<td><a class='btn' href='".$_SERVER['PHP_SELF']."?id=".$row['user_id']."&action=edit'>Go to Edit</a></td>";
+                            echo "<td><a class='btn' href='".$reqURL."?id=".$row['user_id']."&action=edit'>Go to Edit</a></td>";
 
-                            echo "<td><a class='btn' href='".$_SERVER['PHP_SELF']."?id=".$row['user_id']."&action=del'>Delete and Save</a></td>";                            
+                            echo "<td><a class='btn' href='".$reqURL."?id=".$row['user_id']."&action=del'>Delete and Save</a></td>";                            
 
                         echo "</tr>";
                     }

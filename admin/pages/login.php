@@ -20,7 +20,9 @@
                 </a>
             </div> 
             <div class='button2'>
-                <form method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+                <!-- <form method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>"> -->
+                <form method="POST" action="login">
+
                 <label>User ID</label>
                 <input name="userid" type="text" />
                 <label>Password</label>

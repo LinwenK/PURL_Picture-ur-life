@@ -5,7 +5,7 @@
         die("Connection failed");
     }
 ?>
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -14,6 +14,19 @@
     <title>Document</title>
 </head>
 <body>
+<section class="top-side">
+        <figure class="intro-photo">
+            <img src="./img/logo.png" alt="left photo">
+            <h1>Admin</h1>
+        </figure>   
+        
+        <div class="gotoRegister">
+            <a href="/user" >User Management</a>
+            <a href="/post" >Post Management</a>
+
+        </div>
+    </section>
+    
     <form method="POST" action="<?php "./pages".$reqURL.".php"; ?>" enctype="multipart/form-data">
         <input name="user_id" required/>
         <input name="post_uid" required />
