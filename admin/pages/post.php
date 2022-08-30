@@ -131,8 +131,8 @@
             echo "<td>".$post["post_date"]."</td>";
             echo "<td><img style='width:100%;' src=".$path.$post["photo_src"]." alt=".$post["tags"]."><a href='".$path.$post["photo_src"]."' download>Download</a>"."</td>";
             echo "<td>".$post["tags"]."</td><td><span>".$post["addr"]."</span></br><button type='button' class='btn btn-primary' data-bs-toggle='modal' data-bs-target='#".$index."'>Open the map</button>"."</td>";
-            echo "<td><a class=abtn href='".$_SERVER['PHP_SELF']."?id=".$post['user_id']."&action=edit'>Go to Edit</a></td>";
-            echo "<td><a class=abtn href='".$reqURL."?id=".$post['post_uid']."&action=delete'>Delete and Save</a></td></tr>";
+            echo "<td><a class=.btn href='".$_SERVER['PHP_SELF']."?id=".$post['user_id']."&action=edit'>Go to Edit</a></td>";
+            echo "<td><a class=.btn href='".$reqURL."?id=".$post['post_uid']."&action=delete'>Delete and Save</a></td></tr>";
         }
         echo "</tbody></table>";
 
