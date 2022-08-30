@@ -1,7 +1,7 @@
 <?php
 
     if(!isset($_SESSION['userData'])){
-        header("Location: http://localhost/project_me/user.php");
+        header("Location: ".parse_url($_SERVER['REQUEST_URI'], PHP_URL_HOST)."/user");    
     }
 ?>
  
@@ -32,14 +32,15 @@
                 $dbcon->close();
                 session_unset();
                 echo "<h1>Update Success</h1>";
-                header("Location: http://localhost/project_me/user.php");
+                header("Location: ".parse_url($_SERVER['REQUEST_URI'], PHP_URL_HOST)."/user");    
             }
         }
         
     ?>
 
 
-    <form method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+    <!-- <form method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>"> -->
+    <form method="POST" action="userEdit">
     <?php
 
         foreach($_SESSION['userData'] as $fieldName=>$value){
