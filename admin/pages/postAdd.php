@@ -14,7 +14,7 @@
     <title>Document</title>
 </head>
 <body>
-    <form method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>" enctype="multipart/form-data">
+    <form method="POST" action="<?php "./pages".$reqURL.".php"; ?>" enctype="multipart/form-data">
         <input name="user_id" required/>
         <input name="post_uid" required />
         <input name="post_date" type="date" required/>
@@ -48,7 +48,9 @@
                         }else{
                             $insertCmd = "INSERT INTO post_tb (user_id,post_uid,post_date,photo_src,tags,addr) VALUES ('$user_id','$post_uid','$post_date','$imgDest','$tags','$addr')";
                             if($dbcon->query($insertCmd)===TRUE){
-                                header("Location: http://localhost/Project_me/postDisplay.php");
+                                // header("Location: http://localhost/Project_me/postDisplay.php");
+                                $_SESSION['flag'] = "Post was added";
+                                header("Location: ".parse_url($_SERVER['REQUEST_URI'], PHP_URL_HOST)."/post");
                             }else{
                                 echo "<h1>Post not registered</h1>".$dbcon->error;
                             }
