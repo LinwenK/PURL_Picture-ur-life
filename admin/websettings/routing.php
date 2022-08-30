@@ -12,7 +12,7 @@
     }
     // print_r($pageArray);
 
-    $reqURL = $_SERVER['REQUEST_URI'];
+    $reqURL = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
     // echo $reqURL;
 
     if($reqURL == "/" || $reqURL == ""){

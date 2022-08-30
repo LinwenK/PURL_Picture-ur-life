@@ -1,4 +1,5 @@
 <?php
+    include './include/config.php'; 
     include './masterpages/header.php';
 
     //put the content pages

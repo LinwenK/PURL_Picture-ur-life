@@ -1,25 +1,60 @@
 <?php 
-
     $dbCon = new mysqli($dbServername, $dbUsername, $dbPass, $dbName);
-    if($_SERVER['REQUEST_METHOD'] == "POST"){
-        if(isset($_POST["keyword"]) && (strlen($_POST["keyword"]) > 2)){
-            $keyword = $_POST["keyword"];
-            if($dbCon->connect_error){
-                die("Connect error");
-            }else{
-                $resultArray = [];
-                $searchPostCmd = "SELECT * FROM post_tb WHERE tags LIKE '%$keyword%'";
-                $result = $dbCon->query($searchPostCmd);
-                while($row = $result->fetch_assoc()){
-                array_push($resultArray, $row);
-                }
-            }
-        }else{
-            echo "Keyword is too short";
+
+    if(isset($_GET['id']) && isset($_GET['action'])) {
+      $id = $_GET['id'];
+      $dbcon = new mysqli($dbServername,$dbUsername,$dbPass,$dbName);
+      if($dbcon->connect_error){
+          die("connection error");
+      }else{
+          switch($_GET['action']){
+              case "delete":
+                  $selCmd = "SELECT * FROM post_tb WHERE post_uid='$id'";
+                  $result = $dbcon->query($selCmd);
+                  $row = $result->fetch_assoc();
+
+                  $delcmd = "DELETE FROM post_tb WHERE post_uid='$id'";
+                  if($dbcon->query($delcmd) === TRUE){
+                      unlink($row['photo_src']);
+                      $_SESSION['flag'] = "Data deleted";
+                  }else{
+                    $_SESSION['flag'] = "Action failed";
+                  }
+                  header("Location: ".parse_url($_SERVER['REQUEST_URI'], PHP_URL_HOST)."/post");
+              break;
+              case "edit":
+                  $selectuser = "SELECT * FROM post_tb WHERE user_id='$id'";
+                  $result = $dbcon->query($selectuser);
+                  $_SESSION['postData'] = $result->fetch_assoc();
+                  $dbcon->close();
+                  header("Location:http://localhost/Project_me/edit.php");
+              break;
+          }
+          $dbcon->close();
+      }
+  }
+
+  if($_SERVER['REQUEST_METHOD'] == "POST"){
+      if(isset($_POST["keyword"]) && (strlen($_POST["keyword"]) > 2)){
+          $keyword = $_POST["keyword"];
+          if($dbCon->connect_error){
+              die("Connect error");
+          }else{
+              $resultArray = [];
+              $searchPostCmd = "SELECT * FROM post_tb WHERE tags LIKE '%$keyword%'";
+              $result = $dbCon->query($searchPostCmd);
+              while($row = $result->fetch_assoc()){
+              array_push($resultArray, $row);
+              }
+          }
+      }else{
+        if(strlen($_POST["keyword"]) <= 2 && strlen($_POST["keyword"]) > 0){
+          $_SESSION['flag'] = "Keyword is too short. Please enter more than 3 characters.";
+        }else if(strlen($_POST["keyword"]) == 0){
+          $_SESSION['flag'] = "Please enter the keyword.";
         }
-    }else{
         if($dbCon->connect_error){
-            die("Connect error");
+          die("Connect error");
         }else{
             $resultArray = [];
             $searchPostCmd = "SELECT * FROM post_tb";
@@ -28,33 +63,20 @@
                 array_push($resultArray, $row);
             }
         }
-    }
-    if(isset($_GET['id']) && isset($_GET['action'])) {
-        $id = $_GET['id'];
-        $dbcon = new mysqli($dbServername,$dbUsername,$dbPass,$dbName);
-        if($dbcon->connect_error){
-            die("connection error");
-        }else{
-            switch($_GET['action']){
-                case "delete":
-                    $delcmd = "DELETE FROM post_tb WHERE user_id='$id'";
-                    if($dbcon->query($delcmd) === TRUE){
-                        echo "<h1>Data deleted</h1>";
-                    }else{
-                        echo "<h1>Action failed</h1>";
-                    }
-                break;
-                case "edit":
-                    $selectuser = "SELECT * FROM post_tb WHERE user_id='$id'";
-                    $result = $dbcon->query($selectuser);
-                    $_SESSION['postData'] = $result->fetch_assoc();
-                    $dbcon->close();
-                    header("Location:http://localhost/Project_me/edit.php");
-                break;
-            }
-            $dbcon->close();
-        }
-    }
+      }
+  }else{
+      if($dbCon->connect_error){
+          die("Connect error");
+      }else{
+          $resultArray = [];
+          $searchPostCmd = "SELECT * FROM post_tb";
+          $result = $dbCon->query($searchPostCmd);
+          while($row = $result->fetch_assoc()){
+              array_push($resultArray, $row);
+          }
+      }
+  }
+    
 
     
 ?>
@@ -96,6 +118,10 @@
     }else{
         if(isset($resultArray)){
         $path = ".";
+        if(isset($_SESSION['flag'])){
+          echo "<h2>".$_SESSION['flag']."</h2>";
+          unset($_SESSION['flag']);
+        }
         echo "<table><thead><tr><th>User ID</th><th>Post UID</th><th>Post Date</th><th>Photo</th><th>Tags</th><th>Address</th><th colspan='3'>Actions</th></tr></thead>";
         echo "<tbody>";
         foreach($resultArray as $key=>$post){
@@ -105,9 +131,8 @@
             echo "<td>".$post["post_date"]."</td>";
             echo "<td><img style='width:100%;' src=".$path.$post["photo_src"]." alt=".$post["tags"]."><a href='".$path.$post["photo_src"]."' download>Download</a>"."</td>";
             echo "<td>".$post["tags"]."</td><td><span>".$post["addr"]."</span></br><button type='button' class='btn btn-primary' data-bs-toggle='modal' data-bs-target='#".$index."'>Open the map</button>"."</td>";
-            echo "<td><a href='./add.php'>Add</a></td>";
             echo "<td><a href='".$_SERVER['PHP_SELF']."?id=".$post['user_id']."&action=edit'>Edit</a></td>";
-            echo "<td><a href='".$_SERVER['PHP_SELF']."?id=".$post['user_id']."&action=delete'>Delete</a></td></tr>";
+            echo "<td><a href='".$reqURL."?id=".$post['post_uid']."&action=delete'>Delete</a></td></tr>";
         }
         echo "</tbody></table>";
 
@@ -125,7 +150,7 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Post date : <?php echo $post["post_date"];?></h5>
+          <h5 class="modal-title" id="exampleModalLabel">Address : <?php echo $post["addr"];?></h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
