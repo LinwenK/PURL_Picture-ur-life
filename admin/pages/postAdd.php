@@ -49,7 +49,7 @@
             $imgDest = "./img/$user_id/".str_replace(" ","_",$photo_src['name']);
             $fileName = "./img/$user_id";
             if(!file_exists($fileName)){
-                mkdir($fileName,0777);
+                mkdir($fileName, 755, true);
             }
             if($imgExtension == "jpg" && getimagesize($photo_src['tmp_name'])){
 
