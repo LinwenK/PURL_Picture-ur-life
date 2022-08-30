@@ -71,6 +71,7 @@
                     }else{
                         echo "<h1>Can't upload the image</h1>";
                     }
+                    // echo $imgDest;
                 }
             }
             

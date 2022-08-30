@@ -302,6 +302,7 @@ tbody tr:nth-child(even){
     font-size: 18px;
     padding: 3% ;
     border-radius: 20px;
+    border-collapse: separate !important;
 }
 
 #post_tb .dbtn{

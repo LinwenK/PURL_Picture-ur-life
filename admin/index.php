@@ -5,6 +5,7 @@
     //put the content pages
     include './websettings/routing.php';
     include $pageCompo;
+    echo $reqURL;
 
     include './masterpages/footer.php';
 ?>

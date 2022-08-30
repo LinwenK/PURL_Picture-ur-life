@@ -15,7 +15,7 @@
         </figure>   
         
         <div class="gotoRegister">
-            <a href="/user" >User Management</a>
+            <a href="/user" >Go back to User</a>
             <a href="/post" >Post Management</a>
 
         </div>

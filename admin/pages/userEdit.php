@@ -16,6 +16,19 @@
 <body>
 
 
+<section class="top-side">
+        <figure class="intro-photo">
+            <img src="./img/logo.png" alt="left photo">
+            <h1>Admin Dashboard</h1>
+        </figure>   
+        
+        <div class="gotoRegister">
+            <a href="/user" >Go back to User</a>
+            <a href="/post" >Post Management</a>
+
+        </div>
+    </section>
+
     <?php
     // print_r($_SESSION['userData']);
 
