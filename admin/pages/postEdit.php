@@ -44,8 +44,18 @@
                         // $uppercase = ucfirst($fieldName);
                         $label = str_replace("_"," ",strtoupper($fieldName));
                 }
-                echo "<label for='$fieldName'>$label</label>";
-                echo "<input type='$type' name='$fieldName' value='$value' required/></br>";
+                $path = ".";
+                $readonly = "readonly";
+                switch($fieldName){
+                    case "photo_src":
+                        echo "<label for='$fieldName'>$label</label>";
+                        echo "<input type='$type' name='$fieldName' value='$value' required/></br>";
+                        echo "<img style='width:100%;' src=".$path.$value."></br>";
+                    break;
+                    default:
+                    echo "<label for='$fieldName'>$label</label>";
+                    echo "<input type='$type' name='$fieldName' value='$value' $readonly required/></br>";
+                }
             }
         ?>
         <button type="submit">Update</button>
