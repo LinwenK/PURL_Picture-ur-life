@@ -1,5 +1,5 @@
 <?php
-    include './include/config.php'; 
+    include '../include/config.php'; 
     session_start();
     if(!isset($_SESSION['postData'])){
         header("Location: http://localhost/Project_me/postDisplay.php");
