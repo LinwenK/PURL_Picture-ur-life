@@ -39,7 +39,8 @@
     <?php
         if($_SERVER['REQUEST_METHOD']=="POST"){
             $user_id = $_POST['user_id'];
-            $post_uid = $_POST['post_uid'];
+            // $post_uid = $_POST['post_uid'];
+            $post_uid = uniqid('');
             $post_date = $_POST['post_date'];
             $photo_src = $_FILES['photo_src'];
             $tags = $_POST['tags'];
