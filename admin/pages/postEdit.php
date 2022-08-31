@@ -1,6 +1,5 @@
 <?php
-    include './include/config.php'; 
-    session_start();
+    // include './include/config.php'; 
     if(!isset($_SESSION['postData'])){
         header("Location: http://localhost/Project_me/postDisplay.php");
     }
@@ -22,15 +21,16 @@
     <?php
         if($_SERVER['REQUEST_METHOD']=="POST"){
             $dbcon = new mysqli($dbServername,$dbUsername,$dbPass,$dbName);
+
             $updateCmd = "UPDATE post_tb SET user_id='".$_POST['user_id']."', post_uid='".$_POST['post_uid']."', post_date='".$_POST['post_date']."', photo_src='".$_POST['photo_src']."', tags='".$_POST['tags']."', addr='".$_POST['addr']."' WHERE user_id='".$_POST['user_id']."'";
             if($dbcon->query($updateCmd) === true){
                 $dbcon->close();
                 unset($_SESSION['postData']);
-                header("Location: http://localhost/Project_me/postDisplay.php");
+                header("Location: ".parse_url($_SERVER['REQUEST_URI'], PHP_URL_HOST)."/post");
             }
         }
     ?>
-    <form method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+    <form method="POST" action="<?php './pages/postEdit.php'; ?>">
         <?php
             foreach($_SESSION['postData'] as $fieldName=>$value){
                 $label = $fieldName;
@@ -44,8 +44,30 @@
                         // $uppercase = ucfirst($fieldName);
                         $label = str_replace("_"," ",strtoupper($fieldName));
                 }
-                echo "<label for='$fieldName'>$label</label>";
-                echo "<input type='$type' name='$fieldName' value='$value' required/></br>";
+                $path = ".";
+                $readonly = "readonly";
+                switch($fieldName){
+                    case "post_date":
+                        echo "<label for='$fieldName'>$label</label>";
+                        echo "<input type='$type' name='$fieldName' value='$value' required/></br>";
+                    break;
+                    case "photo_src":
+                        echo "<label for='$fieldName'>$label</label>";
+                        echo "<input type='$type' name='$fieldName' value='$value' $readonly required/></br>";
+                        echo "<img style='width:100%;' src=".$path.$value."></br>";
+                    break;
+                    case "tags":
+                        echo "<label for='$fieldName'>$label</label>";
+                        echo "<input type='$type' name='$fieldName' value='$value' required/></br>";
+                    break;
+                    case "addr":
+                        echo "<label for='$fieldName'>$label</label>";
+                        echo "<input type='$type' name='$fieldName' value='$value' required/></br>";
+                    break;
+                    default:
+                    echo "<label for='$fieldName'>$label</label>";
+                    echo "<input type='$type' name='$fieldName' value='$value' $readonly required/></br>";
+                }
             }
         ?>
         <button type="submit">Update</button>

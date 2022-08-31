@@ -27,7 +27,7 @@
                   $result = $dbcon->query($selectuser);
                   $_SESSION['postData'] = $result->fetch_assoc();
                   $dbcon->close();
-                  header("Location:http://localhost/Project_me/edit.php");
+                  header("Location: ".parse_url($_SERVER['REQUEST_URI'], PHP_URL_HOST)."/postEdit");
               break;
           }
           $dbcon->close();
@@ -41,7 +41,8 @@
               die("Connect error");
           }else{
               $resultArray = [];
-              $searchPostCmd = "SELECT * FROM post_tb WHERE tags LIKE '%$keyword%'";
+              $searchPostCmd = "SELECT * FROM post_tb WHERE tags LIKE '%$keyword%';";
+              // $searchPostCmd = "SELECT * FROM post_tb WHERE LOCATE('$keyword', tags) > 0;"; 
               $result = $dbCon->query($searchPostCmd);
               while($row = $result->fetch_assoc()){
               array_push($resultArray, $row);
@@ -93,7 +94,7 @@
         </div>
     </section>
   <!-- <h1>PURL DASHBOARD</h1> -->
-  <form method="POST" action="<?php $_SERVER['PHP_SELF'];?>">
+  <form method="POST" action="<?php './pages/post.php';?>">
   <?php
     echo "<input type='text' name='keyword' placeholder='Enter the keywords'/>";
     echo "<button type='submit'>Search</button>";
@@ -119,7 +120,7 @@
             echo "<td>".$post["post_date"]."</td>";
             echo "<td><img class='item_img' style='width:100%;' src=".$path.$post["photo_src"]." alt=".$post["tags"]."><a class='dbtn' href='".$path.$post["photo_src"]."' download>Download</a>"."</td>";
             echo "<td>".$post["tags"]."</td><td><span>".$post["addr"]."</span></br><button type='button' class='btn btn-primary map-btn' data-bs-toggle='modal' data-bs-target='#".$index."'>Open the map</button>"."</td>";
-            echo "<td><a class='pbtn' href='".$_SERVER['PHP_SELF']."?id=".$post['user_id']."&action=edit'>Go to Edit</a></td>";
+            echo "<td><a class='pbtn' href='".$reqURL."?id=".$post['user_id']."&action=edit'>Go to Edit</a></td>";
             echo "<td><a class='pbtn' href='".$reqURL."?id=".$post['post_uid']."&action=delete'>Delete and Save</a></td></tr>";
         }
         echo "</tbody></table>";
