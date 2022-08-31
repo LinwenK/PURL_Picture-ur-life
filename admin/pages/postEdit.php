@@ -52,6 +52,14 @@
                         echo "<input type='$type' name='$fieldName' value='$value' required/></br>";
                         echo "<img style='width:100%;' src=".$path.$value."></br>";
                     break;
+                    case "tags":
+                        echo "<label for='$fieldName'>$label</label>";
+                        echo "<input type='$type' name='$fieldName' value='$value' required/></br>";
+                    break;
+                    case "addr":
+                        echo "<label for='$fieldName'>$label</label>";
+                        echo "<input type='$type' name='$fieldName' value='$value' required/></br>";
+                    break;
                     default:
                     echo "<label for='$fieldName'>$label</label>";
                     echo "<input type='$type' name='$fieldName' value='$value' $readonly required/></br>";
