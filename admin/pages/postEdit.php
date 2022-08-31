@@ -1,10 +1,8 @@
 <?php
-
-    include './include/config.php';
+    include './include/config.php'; 
     session_start();
     if(!isset($_SESSION['postData'])){
-        header("Location: http://localhost/php/FINAL_PROJECT/postDisplay.php");
-
+        header("Location: http://localhost/Project_me/postDisplay.php");
     }
 ?>
 <!DOCTYPE html>
@@ -28,7 +26,7 @@
             if($dbcon->query($updateCmd) === true){
                 $dbcon->close();
                 unset($_SESSION['postData']);
-                header("Location: http://localhost/php/FINAL_PROJECT/postDisplay.php");
+                header("Location: http://localhost/Project_me/postDisplay.php");
             }
         }
     ?>
@@ -43,25 +41,14 @@
                     break;
                     default:
                         $type = "text";
+                        // $uppercase = ucfirst($fieldName);
                         $label = str_replace("_"," ",strtoupper($fieldName));
                 }
-                $path = ".";
-                $readonly = "readonly";
-                switch($fieldName){
-                    case "photo_src":
-                        echo "<label for='$fieldName'>$label</label>";
-                        echo "<input type='$type' name='$fieldName' value='$value' required/></br>";
-                        echo "<img style='width:100%;' src=".$path.$value."></br>";
-                    break;
-                    default:
-                    echo "<label for='$fieldName'>$label</label>";
-                    echo "<input type='$type' name='$fieldName' value='$value' $readonly required/></br>";
-                }
+                echo "<label for='$fieldName'>$label</label>";
+                echo "<input type='$type' name='$fieldName' value='$value' required/></br>";
             }
-               
         ?>
         <button type="submit">Update</button>
     </form>
 </body>
 </html>
-
