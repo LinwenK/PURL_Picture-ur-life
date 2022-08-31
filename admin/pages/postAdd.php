@@ -28,11 +28,17 @@
     </section>
     
     <form method="POST" action="<?php "./pages".$reqURL.".php"; ?>" enctype="multipart/form-data">
+        <label for="user_id">User ID</label>
         <input name="user_id" required/>
-        <input name="post_uid" required />
+        <!-- <label for="post_uid">Post UID</label>
+        <input name="post_uid" required /> -->
+        <label for="post_date">Post Date</label>
         <input name="post_date" type="date" required/>
+        <label for="photo_src">Upload Picture</label>
         <input name="photo_src" type="file" required/>
+        <label for="tags">Tags</label>
         <input name="tags" required/>
+        <label for="addr">Address</label>
         <input name="addr" required/>
         <button type="submit">Add</button>
     </form>

@@ -1,10 +1,8 @@
 <?php
     include './include/config.php'; 
-    include './masterpages/header.php';
-
-    //put the content pages
     include './websettings/routing.php';
+    //put the content pages
+    include './masterpages/header.php';
     include $pageCompo;
-
     include './masterpages/footer.php';
 ?>
