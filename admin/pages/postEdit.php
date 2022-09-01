@@ -1,8 +1,28 @@
 <?php
-    include './include/config.php'; 
-    session_start();
+    // if(!isset($_SESSION['postData'])){
+    //     header("Location: http://localhost/Project_me/postDisplay.php");
+    // }
+
     if(!isset($_SESSION['postData'])){
-        header("Location: http://localhost/Project_me/postDisplay.php");
+        header("Location: ".parse_url($_SERVER['REQUEST_URI'], PHP_URL_HOST)."/post");    
+    }
+
+    if(($_SESSION['timeout'] < time()) || (!isset($_SESSION['user']))){
+        session_unset();
+        session_destroy();
+        header("Location: ".parse_url($_SERVER['REQUEST_URI'], PHP_URL_HOST)."/login");
+    }
+
+    if(isset($_GET['action'])){
+        switch($_GET['action']){
+            case "exit":
+                session_unset();
+                session_destroy();
+                header("Location: ".parse_url($_SERVER['REQUEST_URI'], PHP_URL_HOST)."/login");
+            break;
+
+            
+        }
     }
 ?>
 <!DOCTYPE html>
@@ -18,21 +38,38 @@
         }
     </style>
 </head>
-<body>
+<body><section class="top-side">
+        <figure class="intro-photo">
+            <img src="./img/logo.png" alt="left photo">
+            <h1>Admin Dashboard Post Data</h1>
+
+        </figure>   
+        
+        <div class="gotoRegister">
+            <a href='user?action=exit'>Log Out</a>
+            <a href="/post" >Go back to Post</a>
+            <a href="/user" id="goPost">User Management</a>
+
+        </div>
+    </section>
     <?php
         if($_SERVER['REQUEST_METHOD']=="POST"){
             $dbcon = new mysqli($dbServername,$dbUsername,$dbPass,$dbName);
+
             $updateCmd = "UPDATE post_tb SET user_id='".$_POST['user_id']."', post_uid='".$_POST['post_uid']."', post_date='".$_POST['post_date']."', photo_src='".$_POST['photo_src']."', tags='".$_POST['tags']."', addr='".$_POST['addr']."' WHERE user_id='".$_POST['user_id']."'";
             if($dbcon->query($updateCmd) === true){
                 $dbcon->close();
                 unset($_SESSION['postData']);
-                header("Location: http://localhost/Project_me/postDisplay.php");
+                header("Location: ".parse_url($_SERVER['REQUEST_URI'], PHP_URL_HOST)."/post");
             }
         }
     ?>
-    <form method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+    <form id="pedit" method="POST" action="<?php './pages/postEdit.php'; ?>">
         <?php
+            echo "<h2>Post Information</h2>";
+
             foreach($_SESSION['postData'] as $fieldName=>$value){
+
                 $label = $fieldName;
                 switch($fieldName){
                     case "post_date":
@@ -44,8 +81,30 @@
                         // $uppercase = ucfirst($fieldName);
                         $label = str_replace("_"," ",strtoupper($fieldName));
                 }
-                echo "<label for='$fieldName'>$label</label>";
-                echo "<input type='$type' name='$fieldName' value='$value' required/></br>";
+                $path = ".";
+                $readonly = "readonly";
+                switch($fieldName){
+                    case "post_date":
+                        echo "<label for='$fieldName'>$label</label>";
+                        echo "<input type='$type' name='$fieldName' value='$value' required/></br>";
+                    break;
+                    case "photo_src":
+                        echo "<label for='$fieldName'>$label</label>";
+                        echo "<input type='$type' name='$fieldName' value='$value' $readonly required/></br>";
+                        echo "<img style='width:100%;' src=".$path.$value."></br>";
+                    break;
+                    case "tags":
+                        echo "<label for='$fieldName'>$label</label>";
+                        echo "<input type='$type' name='$fieldName' value='$value' required/></br>";
+                    break;
+                    case "addr":
+                        echo "<label for='$fieldName'>$label</label>";
+                        echo "<input type='$type' name='$fieldName' value='$value' required/></br>";
+                    break;
+                    default:
+                    echo "<label for='$fieldName'>$label</label>";
+                    echo "<input type='$type' name='$fieldName' value='$value' $readonly required/></br>";
+                }
             }
         ?>
         <button type="submit">Update</button>

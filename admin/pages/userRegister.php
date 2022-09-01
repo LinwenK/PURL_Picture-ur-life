@@ -1,47 +1,72 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-        
+<?php
+    if((time() - $_SESSION['timeout'] > 1800) || (!isset($_SESSION['user']))){
+        session_unset();
+        session_destroy();
+        header("Location: ".parse_url($_SERVER['REQUEST_URI'], PHP_URL_HOST)."/login");
+    } 
+
+    if(isset($_GET['action'])){
+        switch($_GET['action']){
+            case "exit":
+                session_unset();
+                session_destroy();
+                header("Location: ".parse_url($_SERVER['REQUEST_URI'], PHP_URL_HOST)."/login");
+            break;
+        }
+    }
+?>
 <section class="top-side">
         <figure class="intro-photo">
             <img src="./img/logo.png" alt="left photo">
-            <h1>Admin</h1>
+            <h1>Admin Dashboard User Data</h1>
         </figure>   
         
         <div class="gotoRegister">
-            <a href="/user" >User Management</a>
-            <a href="/post" >Post Management</a>
+            <a href='user?action=exit'>Log Out</a>
+            <a href="/user" >Go back to User</a>
+            <a href="/post" id="goPost">Post Management</a>
 
         </div>
     </section>
-    <form method="POST" action="<?php "./pages".$reqURL.".php";?>">
-        <label>User ID</label>
-        <input name="user_id" placeholder="user id" require/>
+    <form id="reg" method="POST" action="<?php "./pages".$reqURL.".php";?>">
+        <div class="left">
+            <p>test</p>
+        </div> 
+        <div class="right">   
+        <h2> Add a User</h2>
 
+        <div class="q1">
+        <label>User ID</label>
+        <input type="text" name="user_id" placeholder="user id" require/>
+        </div>
+
+        <div class="q2">
         <label>Password</label>
         <input type="password" name="pass" placeholder="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*?]).{8,}" require/>
         <p>(At least eight characters, including at least one number & one lower letters & one uppercase letters & one special characters)</p>
+        </div>
 
+        <div class="q3">
         <label>E-mail</label>
         <input type="email" name="email" placeholder="email" require/>
+        </div>
 
+        <div class="q4">
         <label>Gender</label>
         <input name="gender" type = "radio" value="Male" require/>Male
         <input name="gender" type = "radio" value="Female" require/>Female
+        </div>
 
+        <div class="q5">
         <label>Birthday</label>
         <input type="date" name="dob" require/>
+        </div>
 
         <button type="submit">Register</button>
+        </div>
     </form>
 
-    <?php
+    <?php 
         if($_SERVER["REQUEST_METHOD"]=="POST"){
             $dbUsername = "root";
             $dbServername = "localhost";
@@ -58,7 +83,7 @@
                 
                 $result = $dbCon->query($insertCmd);
                 if($result === true){
-                    echo "<h1 style='color: green;'>Welcome to Purl ! Your account has been created successfully.</h1>";
+                    echo "<script>alert('Welcome to Purl ! Your account has been created successfully ! ');</script>";
                     header("Location: ".parse_url($_SERVER['REQUEST_URI'], PHP_URL_HOST)."/user");
                 }else{
                     echo "<h1 style='color: red;'>".$dbCon->error."</h1>";
@@ -67,5 +92,3 @@
             }
         }
     ?>
-</body>
-</html>

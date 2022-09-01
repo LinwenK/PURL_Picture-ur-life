@@ -1,8 +1,26 @@
 <?php 
-    include './include/config.php'; 
     $dbcon = new mysqli($dbServername,$dbUsername,$dbPass,$dbName);
     if($dbcon->connect_error) {
         die("Connection failed");
+    }
+
+
+    if(($_SESSION['timeout'] < time()) || (!isset($_SESSION['user']))){
+        session_unset();
+        session_destroy();
+        header("Location: ".parse_url($_SERVER['REQUEST_URI'], PHP_URL_HOST)."/login");
+    }
+
+    if(isset($_GET['action'])){
+        switch($_GET['action']){
+            case "exit":
+                session_unset();
+                session_destroy();
+                header("Location: ".parse_url($_SERVER['REQUEST_URI'], PHP_URL_HOST)."/login");
+            break;
+
+            
+        }
     }
 ?>
 <!DOCTYPE html> 
@@ -17,29 +35,43 @@
 <section class="top-side">
         <figure class="intro-photo">
             <img src="./img/logo.png" alt="left photo">
-            <h1>Admin</h1>
+            <h1>Admin Dashboard Post Data</h1>
         </figure>   
         
         <div class="gotoRegister">
-            <a href="/user" >User Management</a>
-            <a href="/post" >Post Management</a>
+            <a href='user?action=exit'>Log Out</a>
+            <a href="/post" >Go back to Post</a>    
+            <a href="/user" id="goPost">User Management</a>
 
         </div>
     </section>
     
-    <form method="POST" action="<?php "./pages".$reqURL.".php"; ?>" enctype="multipart/form-data">
-        <label for="user_id">User ID</label>
+    <form id="padd"method="POST" action="<?php "./pages".$reqURL.".php"; ?>" enctype="multipart/form-data">
+        <h2> Add a Post</h2>
+        <div class="q1">
+    <label for="user_id">User ID</label>
         <input name="user_id" required/>
+        </div>
         <!-- <label for="post_uid">Post UID</label>
         <input name="post_uid" required /> -->
+        <div class="q2">
         <label for="post_date">Post Date</label>
         <input name="post_date" type="date" required/>
+        </div>
+        <div class="q3">
+
         <label for="photo_src">Upload Picture</label>
         <input name="photo_src" type="file" required/>
+        </div>
+        <div class="q4">
         <label for="tags">Tags</label>
         <input name="tags" required/>
+        </div>
+        <div class="q5">
         <label for="addr">Address</label>
         <input name="addr" required/>
+        </div>
+
         <button type="submit">Add</button>
     </form>
     <?php

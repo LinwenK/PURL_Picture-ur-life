@@ -57,7 +57,8 @@
     padding-left: 1%;
     display: flex;
     justify-content: left;
-    align-items: center;
+    align-items:center;
+    row-gap: 20%;
 
 }
 
@@ -65,8 +66,6 @@
 #go{
     position: absolute;
     z-index: 1;
-    /* width: fit-content;
-    height: fit-content; */
     padding: 1% 2% 1% 2%;
     font-size: 23px;
     border-radius: 100px;
@@ -97,21 +96,21 @@
 
 }
 
+/************************* Login page *******************************/
 
 #loginOption{
     position: absolute;
     z-index: 1;
     width: 100%;
-    height: 10%;
-
+    height: 30%;
+    font-size: 23px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     /* column-gap: 20%; */
-
 }
 
-#loginOption .button1{
+#login .button1{
 
     z-index: 1;
     width: 50%;
@@ -124,8 +123,9 @@
 
 }
 
-#loginOption .button2{
+#login .button2{
 
+    font-weight: 900;
     z-index: 1;
     width: 50%;
     height: 100%;
@@ -134,37 +134,69 @@
     justify-content: left;
     align-items: center;
 
+
+
 }
 
+#loginInfo{
 
+    z-index: 1;
+    padding-top: 10%;
+    width: 25%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    row-gap: 8%;
+    align-items: top;
+    font-size: 23px;
 
-#login [type="text"],[type="password"]{
+}
+#login .q1, #login .q2{
+
     width: 100%;
+    height: 20%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: top;
+
+} 
+#login label, #login input{
+    color: #2D428B;
+    border-radius: 100px;
+
+}
+#login input{
+    border: 1px solid #2D428B;
+
+}
+#login [type="text"], #login [type="password"]{
+    width: 100%;
+    height: 150%;
+    color: #2D428B;
+    border-radius: 100px;
+    padding: 5%;
+    font-size: 23px;
+
+    border: 1px solid #2D428B;
 }
 
-
-/* 
-textarea{
-    width:100%;
-}
-
-.send{
-    line-height: 1.5;
-    margin: 5% 0 15% 0;
-    font-size: 20px;    
-    text-align: center;    
-}
-
-
-[type="submit"], [type="reset"]{
-    background-color: #D4B8B4;
-    color: white;
-    font-size: 20px;
-    border: 1px solid gainsboro;
-    width: 30%;
-
+#login [type="submit"]{
     padding: 2%;
-} */
+    line-height: 1.5;
+    /* width: fit-content;
+    height: fit-content; */
+    padding: 2% 4%;
+    border-radius: 100px;
+    color: whitesmoke;
+    text-decoration: none;
+    background-color: #2D428B;
+    font-size: 23px;
+
+    border: 1px solid #2D428B;
+    cursor: pointer;
+}
 
 /************************* User page *******************************/
 
@@ -178,6 +210,14 @@ textarea{
     padding-bottom: 1%;
     background-color: #2D428B;
 
+}
+.top-side h1{
+    font-weight: 900;
+    line-height: 1.5;
+    letter-spacing: 3px;
+
+    width: fit-content;
+    border-bottom: 3px solid whitesmoke;
 }
 
 .intro-photo{
@@ -207,8 +247,8 @@ textarea{
 }
 
 .gotoRegister a{
-    background-color: whitesmoke;
-    color: #2D428B;
+    background-color: #7080B0;
+    color: whitesmoke;
     border-radius: 5px;
 
     height: 50%;
@@ -233,7 +273,31 @@ textarea{
 
 }
 
+#goPost:hover{
+    background-color: #2D428B;
+    border: 5px solid whitesmoke;
+    color: whitesmoke;
 
+}
+
+#goPost{
+    background-color: whitesmoke;
+    color: #2D428B;
+    border-radius: 5px;
+
+    height: 50%;
+    width: fit-content; 
+    text-decoration: none;
+    text-align: center;
+    display: flex;
+    align-items: center;
+
+    font-size: 20px;
+    font-weight: 800;
+    letter-spacing: 2px;
+
+    padding: 1%;
+}
 
 body{
     display: flex;
@@ -247,16 +311,16 @@ body{
 
 
 #user_tb{
-    width: 85%;
+    width: 90%;
     text-align: center;
     border: 3px solid #2D428B;
-    line-height: 2;
+    line-height: 1.5;
     font-size: 20px;
     padding: 3% ;
     border-radius: 20px;
 }
 
-#user_tb .btn{
+#user_tb .btn:nth-child(1){
     text-decoration:none;
     color: whitesmoke;
 
@@ -264,6 +328,16 @@ body{
     border-radius: 10px;
     background-color: #2D428B;
 } 
+
+#user_tb .btn:nth-child(2){
+    text-decoration:none;
+    color: whitesmoke;
+
+    padding:12px 16px;
+    border-radius: 10px;
+    background-color: #505860;
+} 
+
 #user_tb .btn:hover{
     background-color: whitesmoke;
     color: #2D428B;
@@ -292,93 +366,347 @@ tbody tr:nth-child(even){
     font-weight: 900;
 }
 
-/************************* Post page *******************************/
+#user_tb tr:hover{
+    background-color: #C0C8c8;
+}
+/************************* User Register page *******************************/
 
-#post_tb{
+
+#reg{
     width: 85%;
     text-align: center;
     border: 3px solid #2D428B;
-    font-size: 18px;
+    line-height: 1.5;
+    font-size: 20px;
     padding: 3% ;
     border-radius: 20px;
-    border-collapse: separate;
+    color: #2D428B;
+    display: flex;
+    align-items: center;
 }
 
-#post_tb .dbtn{
-    text-decoration:none;
-    color: whitesmoke;
+#reg .left{
+    width: 40%;
+    color: transparent;
+}
 
-    padding:10px;
-    border-radius: 10px;
-    background-color: #8898B8;
+#reg .right{
 
-    border: 5px solid #2D428B;
+    text-align: center;
+    line-height: 1.5;
+    font-size: 20px;
+    color: #2D428B;
+    display: flex;
+    flex-direction: column;
+    align-items:top;
+    justify-content: center;
+    row-gap: 20px;
+}
+
+#reg h2{
+    border-bottom: 3px solid #2D428B;
+    width: 30%;
+    align-items: center;
+    margin-left: 15%;
+    margin-bottom: 3%;
+}
+
+
+
+#reg .q1, #reg .q2, #reg .q3, #reg .q4, #reg .q5{
+    width: 70%;
+    height: 20%;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    
+    column-gap: 30px;
 
 } 
-#post_tb .dbtn:hover{
-    background-color: #2D428B;
-    color: whitesmoke;
-    cursor: pointer;
+#reg .q2{
+    width: 100%;
+}
+#reg .q2 p{
+    width: 57%;
+    text-align: left;
+    color: darkgoldenrod;
+}
+
+#reg .q4{
+    width: 55%;
+}
+
+#reg label{
+    font-size: 24px;
+    color: #2D428B;
+    font-weight: 900;
+    width: 100px;
+    text-align: left;
+}
+
+#reg input{
+    font-size: 24px;
+    color: #2D428B;
+    border-radius: 100px;
+    /* width: 100%;
+    height: 200%; */
+
+    width: 60%;
+    height: 5vh;
+    text-align: center;
+    border: 1px solid #2D428B;
 
 }
 
 
-#post_tb .btn{
-    text-decoration:none;
+
+
+#reg [type="email"], #reg [type="text"], #reg [type="date"], #reg [type="password"]{
+    /* width: 100%; */
+    /* height: 5vh; */
+    color: #2D428B;
+    font-size: 20px;
+    text-align: center;
+    border-radius: 20px;
+    border: 1px solid #2D428B;
+}
+
+
+
+
+
+#reg [type="submit"]{
+    margin-top: 5%;
+    padding: 1%;
+    line-height: 1.5;
+    width: 60%;
+    font-size: 20px;
+    border-radius: 100px;
+    color: whitesmoke;
+    text-decoration: none;
+    background-color: #2D428B;
+
+    border: 1px solid #2D428B;
+    cursor: pointer;
+}
+
+/************************* Post add page *******************************/
+
+
+#padd{
+    width: 85%;
+    text-align: center;
+    border: 3px solid #2D428B;
+    line-height: 1.5;
+    font-size: 20px;
+    padding: 3% ;
+    border-radius: 20px;
+    display: flex;
+    color: #2D428B;
+    flex-direction: column;
+    align-items:center;
+    justify-content: center;
+    row-gap: 20px;
+}
+
+#padd h2{
+    border-bottom: 3px solid #2D428B;
+    width: 30%;
+    margin-bottom: 2%;
+}
+
+
+
+#padd .q1, #padd .q2, #padd .q3, #padd .q4, #padd .q5{
+    width: 50%;
+    height: 20%;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    
+    column-gap: 30px;
+
+} 
+
+
+#padd label{
+    font-size: 24px;
+    color: #2D428B;
+    font-weight: 900;
+    width: 30%;
+    text-align: left;
+}
+
+#padd .q1 input, #padd .q2 input, #padd .q4 input, #padd .q5 input{
+    font-size: 24px;
+    color: #2D428B;
+    border-radius: 100px;
+
+
+    width: 100%;
+    height: 5vh;
+    text-align: center;
+    border: 1px solid #2D428B;
+
+}
+#padd .q3 input{
+    font-size: 24px;
+    color: #2D428B;
+    border-radius: 100px;
+
+    padding-left: 10%;
+    width: 100%;
+    height: 5vh;
+    text-align: center;
+}
+
+
+
+#padd [type="text"], #padd [type="date"]{
+    /* width: 100%; */
+    /* height: 5vh; */
+    color: #2D428B;
+    font-size: 20px;
+    text-align: center;
+    border-radius: 20px;
+    border: 1px solid #2D428B;
+}
+
+
+
+
+
+#padd [type="submit"]{
+    margin-top: 2%;
+    padding: 1%;
+    line-height: 1.5;
+    width: 60%;
+    font-size: 20px;
+    border-radius: 100px;
+    color: whitesmoke;
+    text-decoration: none;
+    background-color: #2D428B;
+
+    border: 1px solid #2D428B;
+    cursor: pointer;
+}
+
+/************************* User Edit page *******************************/
+
+
+#edit{
+    width: 85%;
+    text-align: center;
+    border: 3px solid #2D428B;
+    line-height: 1.5;
+    font-size: 20px;
+    padding: 3% ;
+    border-radius: 20px;
+    color: #2D428B;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#edit h2:nth-child(1){
+    border-bottom: 3px solid #2D428B;
+}
+#edit h2:nth-child(2){
+    padding: 0 0 2%;
+}
+#edit label{
+    font-size: 24px;
+
+}
+#edit [type="email"], #edit [type="text"], #edit [type="date"]{
+    width: 40%;
+    height: 5vh;
+    color: #2D428B;
+    font-size: 20px;
+    text-align: center;
+    border-radius: 20px;
+    border: 1px solid #2D428B;
+}
+
+
+
+
+
+#edit [type="submit"]{
+    padding: 2%;
+    line-height: 1.5;
+    /* width: fit-content;
+    height: fit-content; */
+    padding: 1% 2% 1% 2%;
+    font-size: 20px;
+    border-radius: 100px;
+    color: whitesmoke;
+    text-decoration: none;
+    background-color: #2D428B;
+    width: 40%;
+
+    border: 1px solid #2D428B;
+    cursor: pointer;
+}
+
+/************************* Post edit page *******************************/
+
+#pedit{
+    width: 85%;
+    text-align: center;
+    border: 3px solid #2D428B;
+    line-height: 1.5;
+    font-size: 20px;
+    padding: 3% ;
+    border-radius: 20px;
+    color: #2D428B;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#pedit h2:nth-child(1){
+    border-bottom: 3px solid #2D428B;
+    margin: 0 0 2%;
+}
+
+#pedit label{
+    font-size: 24px;
+
+}
+#pedit [type="text"], #pedit [type="date"]{
+    width: 30%;
+    height: 5vh;
     color: #2D428B;
     font-size: 16px;
-    padding:8px;
-    border-radius: 10px;
-    background-color: whitesmoke;
-
-    border: 5px solid #8898B8;
-
-} 
-#post_tb .btn:hover{
-    background-color: #2D428B;
-    color: whitesmoke;
-    cursor: pointer;
-}
-
-#post_tb .pbtn{
-    text-decoration:none;
-    color: whitesmoke;
-    font-size: 20px;
-    padding:12px 16px;
-    border-radius: 10px;
-    background-color: #2D428B;
-
-}
-#post_tb .ptn:hover{
-    background-color: #8898B8;
-    color: whitesmoke;
-    cursor: pointer;
+    text-align: center;
+    border-radius: 20px;
+    border: 1px solid #2D428B;
 }
 
 
-#post_tb td, #post_tb th{
-    padding: 15px 5px;
-    width: fit-content;
+#pedit img{
+    width: 50% !important;
+    height: 50%;
 }
 
-#post_tb th{
-    background-color: #FFF3D4;
-    color: #2D428B;
-    font-size: 18px;
+
+
+#pedit [type="submit"]{
+    padding: 2%;
     line-height: 1.5;
-    width: fit-content;
+    /* width: fit-content;
+    height: fit-content; */
+    padding: 1% 2% 1% 2%;
+    font-size: 20px;
+    border-radius: 100px;
+    color: whitesmoke;
+    text-decoration: none;
+    background-color: #2D428B;
+    width: 40%;
 
-
-    /* border-bottom: 3px solid #2D428B; */
-}
-
-#post_tb th:nth-child(7), #post_tb th:nth-child(8){
-    /* background-color: #A4C8B5; */
-    width: 150px;
-}
-
-#post_tb td:nth-child(1){
-    font-weight: 900;
+    border: 1px solid #2D428B;
+    cursor: pointer;
 }
 
 /************************* Error page *******************************/
