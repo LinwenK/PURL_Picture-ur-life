@@ -1,5 +1,24 @@
 <?php 
-    
+
+
+
+     if(($_SESSION['timeout'] < time()) || (!isset($_SESSION['user']))){
+        session_unset();
+        session_destroy();
+        header("Location: ".parse_url($_SERVER['REQUEST_URI'], PHP_URL_HOST)."/login");
+    }
+
+    if(isset($_GET['action'])){
+        switch($_GET['action']){
+            case "exit":
+                session_unset();
+                session_destroy();
+                header("Location: ".parse_url($_SERVER['REQUEST_URI'], PHP_URL_HOST)."/login");
+            break;
+
+            
+        }
+    }
 
     if(isset($_GET['id']) && isset($_GET['action'])){
 
@@ -29,7 +48,7 @@
                     $result = $dbcon->query($selectUser) or die($dbcon->error);
                     // $userData = $result->fetch_assoc();
                     // $_SESSION['userData'] =  $userData;
-                    // print_r($result);
+                    // // print_r($result);
                     $_SESSION['userData'] = $result->fetch_assoc();
 
                     // print_r($_SESSION['userData']);
@@ -44,27 +63,16 @@
 ?>
 
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-
-
-</head>
-<body>
-        
     <section class="top-side">
         <figure class="intro-photo">
             <img src="./img/logo.png" alt="left photo">
-            <h1>Admin Dashboard</h1>
+            <h1>Admin Dashboard User Data</h1>
         </figure>   
         
         <div class="gotoRegister">
+            <a href='user?action=exit'>Log Out</a>
             <a href="/userRegister" >Add a User</a>
-            <a href="/post" >Post Management</a>
+            <a href="/post" id="goPost">Post Management</a>
 
         </div>
     </section>
@@ -79,7 +87,7 @@
                 <th>Gender</th>
                 <th>Birthday</th>
                 <th>Create ID Date</th> 
-                <th>Login Fuilure</th>
+                <!-- <th>Login Fuilure</th> -->
 
                 <!-- <th colspan="2">Actions</th> -->
                 <th>Edit</th>
@@ -94,12 +102,11 @@
 
                 $dbcon = new mysqli($dbServername, $dbUsername, $dbPass, $dbName);
                 if($dbcon->connect_error){
-                    echo "<h1>".$dbcon->connect_error."test11</h1>";
+                    echo "<h1>".$dbcon->connect_error."</h1>";
                 }else{
                     $selectCmd = "SELECT * FROM user_tb";
                     $result = $dbcon->query($selectCmd) or die($dbcon->error);;
 
-                    // $users = [];
                     while($row = $result->fetch_assoc()){
                         echo "<tr>";
                             echo "<td>".$row['user_id']."</td>";   
@@ -108,7 +115,7 @@
                             echo "<td>".$row['gender']."</td>";   
                             echo "<td>".$row['birthday']."</td>";   
                             echo "<td>".$row['create_id_date']."</td>";    
-                            echo "<td>".$row['login_failure_num']."</td>";   
+                            // echo "<td>".$row['login_failure_num']."</td>";   
 
 
 
@@ -128,5 +135,3 @@
         </tbody>
     </table>
     
-</body>
-</html>

@@ -1,7 +1,24 @@
 <?php
-    // include './include/config.php'; 
     if(!isset($_SESSION['postData'])){
-        header("Location: http://localhost/Project_me/postDisplay.php");
+        header("Location: ".parse_url($_SERVER['REQUEST_URI'], PHP_URL_HOST)."/post");    
+    }
+
+    if(($_SESSION['timeout'] < time()) || (!isset($_SESSION['user']))){
+        session_unset();
+        session_destroy();
+        header("Location: ".parse_url($_SERVER['REQUEST_URI'], PHP_URL_HOST)."/login");
+    }
+
+    if(isset($_GET['action'])){
+        switch($_GET['action']){
+            case "exit":
+                session_unset();
+                session_destroy();
+                header("Location: ".parse_url($_SERVER['REQUEST_URI'], PHP_URL_HOST)."/login");
+            break;
+
+            
+        }
     }
 ?>
 <!DOCTYPE html>
@@ -17,7 +34,20 @@
         }
     </style>
 </head>
-<body>
+<body><section class="top-side">
+        <figure class="intro-photo">
+            <img src="./img/logo.png" alt="left photo">
+            <h1>Admin Dashboard Post Data</h1>
+
+        </figure>   
+        
+        <div class="gotoRegister">
+            <a href='user?action=exit'>Log Out</a>
+            <a href="/post" >Go back to Post</a>
+            <a href="/user" id="goPost">User Management</a>
+
+        </div>
+    </section>
     <?php
         if($_SERVER['REQUEST_METHOD']=="POST"){
             $dbcon = new mysqli($dbServername,$dbUsername,$dbPass,$dbName);
@@ -30,9 +60,16 @@
             }
         }
     ?>
+<<<<<<< HEAD
     <form method="POST" action="<?php './pages/postEdit.php'; ?>">
+=======
+    <form id="pedit" method="POST" action="<?php './pages/postEdit.php'; ?>">
+>>>>>>> fd1de7916bb6be0dac1efd5ad19610a797a7cca3
         <?php
+            echo "<h2>Post Information</h2>";
+
             foreach($_SESSION['postData'] as $fieldName=>$value){
+
                 $label = $fieldName;
                 switch($fieldName){
                     case "post_date":

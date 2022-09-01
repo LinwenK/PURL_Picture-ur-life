@@ -1,6 +1,25 @@
 <?php 
     $dbCon = new mysqli($dbServername, $dbUsername, $dbPass, $dbName);
 
+
+    if(($_SESSION['timeout'] < time()) || (!isset($_SESSION['user']))){
+      session_unset();
+      session_destroy();
+      header("Location: ".parse_url($_SERVER['REQUEST_URI'], PHP_URL_HOST)."/login");
+  }
+
+  if(isset($_GET['action'])){
+      switch($_GET['action']){
+          case "exit":
+              session_unset();
+              session_destroy();
+              header("Location: ".parse_url($_SERVER['REQUEST_URI'], PHP_URL_HOST)."/login");
+          break;
+
+          
+      }
+  }
+  
     if(isset($_GET['id']) && isset($_GET['action'])) {
       $id = $_GET['id'];
       $dbcon = new mysqli($dbServername,$dbUsername,$dbPass,$dbName);
@@ -84,17 +103,18 @@
 <section class="top-side">
         <figure class="intro-photo">
             <img src="./img/logo.png" alt="left photo">
-            <h1>Admin Dashboard</h1>
+            <h1>Admin Dashboard Post Data</h1>
         </figure>   
         
         <div class="gotoRegister">
+            <a href='user?action=exit'>Log Out</a>  
             <a href="/postAdd" >Add a Post</a>
-            <a href="/user" >User Management</a>
+            <a href="/user" id="goPost">User Management</a>
 
         </div>
     </section>
   <!-- <h1>PURL DASHBOARD</h1> -->
-  <form method="POST" action="<?php './pages/post.php';?>">
+  <form id="srbtn"method="POST" action="<?php './pages/post.php';?>">
   <?php
     echo "<input type='text' name='keyword' placeholder='Enter the keywords'/>";
     echo "<button type='submit'>Search</button>";

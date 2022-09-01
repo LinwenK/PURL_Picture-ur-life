@@ -1,56 +1,82 @@
-<?php
 
+<?php
     if(!isset($_SESSION['userData'])){
         header("Location: ".parse_url($_SERVER['REQUEST_URI'], PHP_URL_HOST)."/user");    
     }
-?>
- 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
 
 
+    if(($_SESSION['timeout'] < time()) || (!isset($_SESSION['user']))){
+        session_unset();
+        session_destroy();
+        header("Location: ".parse_url($_SERVER['REQUEST_URI'], PHP_URL_HOST)."/login");
+    }
+
+
+    if(isset($_GET['action'])){
+        switch($_GET['action']){
+            case "exit":
+                session_unset();
+                session_destroy();
+                header("Location: ".parse_url($_SERVER['REQUEST_URI'], PHP_URL_HOST)."/login");
+            break;
+        }
+    }
+
+
+        
+    ?>
+<section class="top-side">
+        <figure class="intro-photo">
+            <img src="./img/logo.png" alt="left photo">
+            <h1>Admin Dashboard User Data</h1>
+
+        </figure>   
+        
+        <div class="gotoRegister">
+            <a href='user?action=exit'>Log Out</a>
+            <a href="/user" >Go back to User</a>
+            <a href="/post" id="goPost">Post Management</a>
+
+        </div>
+    </section>
     <?php
-    // print_r($_SESSION['userData']);
-
         if($_SERVER['REQUEST_METHOD']=="POST"){
             $dbcon = new mysqli($dbServername, $dbUsername, $dbPass, $dbName);
 
             // $updateCmd = "UPDATE user_tb SET user_id='".$_POST['user_id']."', password ='".$_POST['password']."', email ='".$_POST['email']."',  create_id_date='".$_POST['create_id_date']."',  gender='".$_POST['gender']."', birthday ='".$_POST['birthday']."', login_failure_num='".$_POST['login_failure_num']."' WHERE user_id='".$_POST['user_id']."' ";
 
-            $updateCmd = "UPDATE user_tb SET user_id='".$_POST['user_id']."', email ='".$_POST['email']."',  gender='".$_POST['gender']."', birthday ='".$_POST['birthday']."' WHERE user_id='".$_POST['user_id']."' ";
-
+            // $updateCmd = "UPDATE user_tb SET user_id='".$_POST['user_id']."', email ='".$_POST['email']."',  gender='".$_POST['gender']."', birthday ='".$_POST['birthday']."' WHERE user_id='".$_POST['user_id']."' ";
+            $updateCmd = "UPDATE user_tb SET email ='".$_POST['email']."',  gender='".$_POST['gender']."', birthday ='".$_POST['birthday']."' WHERE user_id='".$_SESSION['userData']['user_id']."' ";
+ 
 
             $result = $dbcon->query($updateCmd) or die($dbcon->error);
-            if($dbcon->query($updateCmd)=== true){
+            if($result=== true){
                 $dbcon->close();
-                session_unset();
+                // session_unset();
                 echo "<h1>Update Success</h1>";
-                header("Location: ".parse_url($_SERVER['REQUEST_URI'], PHP_URL_HOST)."/user");    
+                header("Location: ".parse_url($_SERVER['REQUEST_URI'], PHP_URL_HOST)."/user"); 
+
+
             }
         }
-        
-    ?>
+        ?>
 
-
-    <!-- <form method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>"> -->
-    <form method="POST" action="userEdit">
+    <form id="edit" method="POST" action="<?php echo $reqURL; ?>">
     <?php
 
         foreach($_SESSION['userData'] as $fieldName=>$value){
             // echo "$fieldName-$value</br>";
             $label = $fieldName;
+            // print_r($_SESSION['userData']);
+            if($fieldName =="user_id"){
+                echo "<h2>Personal Information</h2>";
+                echo "<h2>user : $value</h2>";
+            }else{
             switch($fieldName){
-                case "user_id":
-                    $type = "text";
-                    $label = "User ID";
-                break;
+                // case "user_id":
+                //     $type = "text";
+                //     $label = "User ID";
+                // break;
 
                 case "password":
                     $type = "password";
@@ -82,12 +108,9 @@
             }
             echo "<label for='$fieldName'>$label</label>";
             echo "<input type='$type' name='$fieldName' value = '$value' required></br>";
-
+        }
         }
     ?>
     <button type="submit">Update</button>
 
     </form>
-    
-</body>
-</html>
