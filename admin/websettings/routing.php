@@ -21,12 +21,16 @@
         $page = basename($reqURL);
     }
     // echo $page;
+
+    
     foreach($pageArray as $pageName){
         if($pageName == $page){
             $pageCompo = "./pages/$page.php";
             break;
         }
     } 
+    // echo $pageCompo;
+
     if(!isset($pageCompo)){
         $pageCompo = './pages/404.php';
     }
