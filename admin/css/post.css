@@ -280,6 +280,7 @@ body{
 
 #post_tb td:nth-child(1){
   font-weight: 900;
+  line-height: 2;
 }
 #pots_tb tr:hover{
   background-color: #C0C8C8;

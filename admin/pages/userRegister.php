@@ -1,9 +1,10 @@
 <?php
-    if((time() - $_SESSION['timeout'] > 1800) || (!isset($_SESSION['user']))){
+     if(($_SESSION['timeout'] < time()) || (!isset($_SESSION['user']))){
         session_unset();
-        session_destroy();
+        session_destroy(); 
         header("Location: ".parse_url($_SERVER['REQUEST_URI'], PHP_URL_HOST)."/login");
-    } 
+    }
+
 
     if(isset($_GET['action'])){
         switch($_GET['action']){
@@ -14,6 +15,7 @@
             break;
         }
     }
+
 ?>
 <section class="top-side">
         <figure class="intro-photo">
@@ -28,6 +30,7 @@
 
         </div>
     </section>
+
     <form id="reg" method="POST" action="<?php "./pages".$reqURL.".php";?>">
         <div class="left">
             <p>test</p>
@@ -67,28 +70,51 @@
     </form>
 
     <?php 
+
         if($_SERVER["REQUEST_METHOD"]=="POST"){
             $dbUsername = "root";
             $dbServername = "localhost";
             $dbPass = "";
             $dbname = "purl_db";
             $dbCon = new mysqli($dbServername,$dbUsername,$dbPass,$dbname);
-            if($dbCon->connect_error){
-                die("Connection error ".$dbCon->connect_error);
+            $email = filter_var($_POST['email'],FILTER_SANITIZE_EMAIL);
+            $user_id = $_POST['user_id'];
+            if(!filter_var($email,FILTER_VALIDATE_EMAIL)){
+                echo "<script>alert(Invalid Email","Please Check the email address);</script>";
             }else{
-                $pass= password_hash($_POST['pass'], PASSWORD_BCRYPT, ["cost"=>9]);
-                $createDate = date("Y-m-d");
-
-                $insertCmd = "INSERT INTO user_tb (user_id,password,email,gender,birthday,login_failure_num,create_id_date) VALUES ('".$_POST['user_id']."','".$pass."','".$_POST['email']."','".$_POST['gender']."','".$_POST['dob']."','0','$createDate')";
                 
-                $result = $dbCon->query($insertCmd);
-                if($result === true){
-                    echo "<script>alert('Welcome to Purl ! Your account has been created successfully ! ');</script>";
-                    header("Location: ".parse_url($_SERVER['REQUEST_URI'], PHP_URL_HOST)."/user");
+                if($dbCon->connect_error){
+                    die("Connection error ".$dbCon->connect_error);
+
                 }else{
-                    echo "<h1 style='color: red;'>".$dbCon->error."</h1>";
-                }
+
+                    $select = "SELECT * FROM user_tb WHERE user_id='$user_id'";
+                    $result_user = $dbCon->query($select);
+                    if($result_user->num_rows==0){
+                    
+                        $pass= password_hash($_POST['pass'], PASSWORD_BCRYPT, ["cost"=>9]);
+                        $createDate = date("Y-m-d");
+
+                        
+                        $insertCmd = "INSERT INTO user_tb (user_id,password,email,gender,birthday,login_failure_num,create_id_date) VALUES ('".$_POST['user_id']."','".$pass."','".$email."','".$_POST['gender']."','".$_POST['dob']."','0','$createDate')";
+                        
+                        $result = $dbCon->query($insertCmd);
+                        if($result === true){
+                            echo "<script>alert('Welcome to Purl ! Your account has been created successfully ! ');</script>";
+                            header("Location: ".parse_url($_SERVER['REQUEST_URI'], PHP_URL_HOST)."/user");
+
+
+                        }else{
+                            // echo "<script>alert('".$dbCon->error."');</script>";
+                            echo "<h1 style='color: red;'>".$dbCon->error."</h1>";
+                        }
+                    }else{
+
+
+                        echo "<script>alert('This User_ID is already taken, please create another one User_ID');</script>";
+                    }
                 $dbCon->close();
+                }
             }
         }
     ?>

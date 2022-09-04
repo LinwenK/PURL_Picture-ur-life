@@ -1,7 +1,5 @@
 <?php
-    // if(!isset($_SESSION['postData'])){
-    //     header("Location: http://localhost/Project_me/postDisplay.php");
-    // }
+
 
     if(!isset($_SESSION['postData'])){
         header("Location: ".parse_url($_SERVER['REQUEST_URI'], PHP_URL_HOST)."/post");    

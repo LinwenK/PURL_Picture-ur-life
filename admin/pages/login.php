@@ -51,7 +51,7 @@
                     if(password_verify($pass,$hashedPass)){
                         $dbcon->close();
                         $_SESSION['user'] = $user;
-                        $_SESSION['timeout'] = time()+1800;
+                        $_SESSION['timeout'] = time()+  (60*60);
                         echo "time()";
 
 

@@ -4,7 +4,7 @@
         die("Connection failed");
     }
 
-
+ 
     if(($_SESSION['timeout'] < time()) || (!isset($_SESSION['user']))){
         session_unset();
         session_destroy();
