@@ -110,7 +110,7 @@
             <a href='user?action=exit'>Log Out</a>  
             <a href="/postAdd" >Add a Post</a>
             <a href="/user" id="goPost">User Management</a>
-
+ 
         </div>
     </section>
   <!-- <h1>PURL DASHBOARD</h1> -->

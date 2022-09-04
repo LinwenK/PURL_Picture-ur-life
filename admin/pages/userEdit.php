@@ -43,10 +43,15 @@
         if($_SERVER['REQUEST_METHOD']=="POST"){
             $dbcon = new mysqli($dbServername, $dbUsername, $dbPass, $dbName);
 
-            // $updateCmd = "UPDATE user_tb SET user_id='".$_POST['user_id']."', password ='".$_POST['password']."', email ='".$_POST['email']."',  create_id_date='".$_POST['create_id_date']."',  gender='".$_POST['gender']."', birthday ='".$_POST['birthday']."', login_failure_num='".$_POST['login_failure_num']."' WHERE user_id='".$_POST['user_id']."' ";
 
-            // $updateCmd = "UPDATE user_tb SET user_id='".$_POST['user_id']."', email ='".$_POST['email']."',  gender='".$_POST['gender']."', birthday ='".$_POST['birthday']."' WHERE user_id='".$_POST['user_id']."' ";
-            $updateCmd = "UPDATE user_tb SET email ='".$_POST['email']."',  gender='".$_POST['gender']."', birthday ='".$_POST['birthday']."' WHERE user_id='".$_SESSION['userData']['user_id']."' ";
+
+            $email = filter_var($_POST['email'],FILTER_SANITIZE_EMAIL);
+
+            if(!filter_var($email,FILTER_VALIDATE_EMAIL)){
+                echo "<script>alert(Invalid Email","Please Check the email address);</script>";
+            }else{
+
+            $updateCmd = "UPDATE user_tb SET email ='".$email."',  gender='".$_POST['gender']."', birthday ='".$_POST['birthday']."' WHERE user_id='".$_SESSION['userData']['user_id']."' ";
  
 
             $result = $dbcon->query($updateCmd) or die($dbcon->error);
@@ -57,7 +62,7 @@
                 header("Location: ".parse_url($_SERVER['REQUEST_URI'], PHP_URL_HOST)."/user"); 
 
 
-            }
+            }}
         }
         ?>
 
