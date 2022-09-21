@@ -1,0 +1,776 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+
+/************************* Home page *******************************/
+#home , #login {
+    position: relative;
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#home .v-home, #login .v-home {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+    z-index: 1;
+}
+
+#option{
+    position: absolute;
+    z-index: 1;
+    width: 100%;
+    height: 10%;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    /* column-gap: 20%; */
+
+}
+
+#option .button1{
+
+    z-index: 1;
+    width: 50%;
+    height: 100%;
+    padding-right: 1%;
+    display: flex;
+    justify-content: right;
+    align-items: center;
+
+
+}
+
+#option .button2{
+
+    z-index: 1;
+    width: 50%;
+    height: 100%;
+    padding-left: 1%;
+    display: flex;
+    justify-content: left;
+    align-items:center;
+    row-gap: 20%;
+
+}
+
+
+#go{
+    position: absolute;
+    z-index: 1;
+    padding: 1% 2% 1% 2%;
+    font-size: 23px;
+    border-radius: 100px;
+    text-decoration: none;
+    color: #2D428B;
+
+    border: 1px solid #2D428B;
+}
+
+#gologin{
+    position: absolute;
+    z-index: 1;
+    /* width: fit-content;
+    height: fit-content; */
+    padding: 1% 4% 1% 4%;
+    font-size: 23px;
+    border-radius: 100px;
+    text-decoration: none;
+    color: #2D428B;
+    border: 1px solid #2D428B;
+
+}
+
+#gologin:hover{
+    background-color: #2D428B;
+    color: whitesmoke;
+    border: 1px solid #2D428B;
+
+}
+
+/************************* Login page *******************************/
+
+#loginOption{
+    position: absolute;
+    z-index: 1;
+    width: 100%;
+    height: 30%;
+    font-size: 23px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    /* column-gap: 20%; */
+}
+
+#login .button1{
+
+    z-index: 1;
+    width: 50%;
+    height: 100%;
+    padding-right: 1%;
+    display: flex;
+    justify-content: right;
+    align-items: center;
+
+
+}
+
+#login .button2{
+
+    font-weight: 900;
+    z-index: 1;
+    width: 50%;
+    height: 100%;
+    padding-left: 1%;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+
+
+
+}
+
+#loginInfo{
+
+    z-index: 1;
+    padding-top: 10%;
+    width: 25%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    row-gap: 12%;
+    align-items: top;
+    font-size: 23px;
+
+}
+#login .q1, #login .q2{
+
+    width: 100%;
+    height: 20%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: top;
+
+} 
+#login label, #login input{
+    color: #2D428B;
+    border-radius: 100px;
+    text-align: center;
+
+}
+#login input{
+    border: 1px solid #2D428B;
+}
+#login [type="text"], #login [type="password"]{
+    width: 100%;
+    height: 150%;
+    color: #2D428B;
+    border-radius: 100px;
+    padding: 5%;
+    font-size: 23px;
+
+    border: 1px solid #2D428B;
+}
+
+#login [type="submit"]{
+    padding: 2%;
+    line-height: 1.5;
+    /* width: fit-content;
+    height: fit-content; */
+    padding: 2% 4%;
+    border-radius: 100px;
+    color: whitesmoke;
+    text-decoration: none;
+    background-color: #2D428B;
+    font-size: 23px;
+    width: 110%;
+
+    border: 1px solid #2D428B;
+    cursor: pointer;
+}
+
+/************************* User page *******************************/
+
+.top-side{
+    height: 15%;
+    display: flex;
+    column-gap: 40px;
+    width: 100%;
+    justify-content: space-evenly;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    background-color: #2D428B;
+
+}
+.top-side h1{
+    font-weight: 900;
+    line-height: 1.5;
+    letter-spacing: 3px;
+
+    width: fit-content;
+    border-bottom: 3px solid whitesmoke;
+}
+
+.intro-photo{
+    width: 10%;
+    display: flex;
+    align-items: center;
+    column-gap: 20px;
+    color: whitesmoke;
+}
+
+.intro-photo img{
+    border: 5px solid whitesmoke;
+    position: relative;
+    width: 100%;
+    border-radius: 50%;
+}
+
+
+.gotoRegister{
+
+    width: 60%;
+    display: flex;
+    align-items: center;
+    justify-content: right;
+    column-gap: 10%;
+
+}
+
+.gotoRegister a{
+    background-color: #7080B0;
+    color: whitesmoke;
+    border-radius: 5px;
+
+    height: 50%;
+    width: fit-content; 
+    text-decoration: none;
+    text-align: center;
+    display: flex;
+    align-items: center;
+
+    font-size: 20px;
+    font-weight: 800;
+    letter-spacing: 2px;
+
+    padding: 1%;
+
+}
+
+.gotoRegister a:hover{
+    background-color: #2D428B;
+    border: 5px solid whitesmoke;
+    color: whitesmoke;
+
+}
+
+#goPost:hover{
+    background-color: #2D428B;
+    border: 5px solid whitesmoke;
+    color: whitesmoke;
+
+}
+
+#goPost{
+    background-color: whitesmoke;
+    color: #2D428B;
+    border-radius: 5px;
+
+    height: 50%;
+    width: fit-content; 
+    text-decoration: none;
+    text-align: center;
+    display: flex;
+    align-items: center;
+
+    font-size: 20px;
+    font-weight: 800;
+    letter-spacing: 2px;
+
+    padding: 1%;
+}
+
+body{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #DCDDDF;
+    row-gap: 40px;
+}
+
+
+
+#user_tb{
+    width: 90%;
+    text-align: center;
+    border: 3px solid #2D428B;
+    line-height: 1.5;
+    font-size: 20px;
+    padding: 3% ;
+    border-radius: 20px;
+}
+
+#user_tb .btn:nth-child(1){
+    text-decoration:none;
+    color: whitesmoke;
+
+    padding:12px 16px;
+    border-radius: 10px;
+    background-color: #2D428B;
+} 
+
+#user_tb .btn:nth-child(2){
+    text-decoration:none;
+    color: whitesmoke;
+
+    padding:12px 16px;
+    border-radius: 10px;
+    background-color: #505860;
+} 
+
+#user_tb .btn:hover{
+    background-color: whitesmoke;
+    color: #2D428B;
+    border: 5px solid #2D428B;
+    cursor: pointer;
+
+}
+
+#user_tb td, #user_tb th{
+    padding: 20px 0;
+}
+
+#user_tb th{
+    background-color: #FFF3D4;
+    color: #2D428B;
+    font-size: 18px;
+    
+    /* border-bottom: 3px solid #2D428B; */
+}
+/* 
+tbody tr:nth-child(even){
+    background-color: #A4C8B5;
+} */
+
+#user_tb td:nth-child(1){
+    font-weight: 900;
+}
+
+#user_tb tr:hover{
+    background-color: #C0C8c8;
+}
+/************************* User Register page *******************************/
+
+
+#reg{
+    width: 85%;
+    text-align: center;
+    border: 3px solid #2D428B;
+    line-height: 1.5;
+    font-size: 20px;
+    padding: 3% ;
+    border-radius: 20px;
+    color: #2D428B;
+    display: flex;
+    align-items: center;
+}
+
+#reg .left{
+    width: 40%;
+    color: transparent;
+}
+
+#reg .right{
+
+    text-align: center;
+    line-height: 1.5;
+    font-size: 20px;
+    color: #2D428B;
+    display: flex;
+    flex-direction: column;
+    align-items:top;
+    justify-content: center;
+    row-gap: 20px;
+}
+
+#reg h2{
+    border-bottom: 3px solid #2D428B;
+    width: 30%;
+    align-items: center;
+    margin-left: 15%;
+    margin-bottom: 3%;
+}
+
+
+
+#reg .q1, #reg .q2, #reg .q3, #reg .q4, #reg .q5{
+    width: 70%;
+    height: 20%;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    
+    column-gap: 30px;
+
+} 
+#reg .q2{
+    width: 100%;
+}
+#reg .q2 p{
+    width: 57%;
+    text-align: left;
+    color: darkgoldenrod;
+}
+
+#reg .q4{
+    width: 55%;
+}
+
+#reg label{
+    font-size: 24px;
+    color: #2D428B;
+    font-weight: 900;
+    width: 100px;
+    text-align: left;
+}
+
+#reg input{
+    font-size: 24px;
+    color: #2D428B;
+    border-radius: 100px;
+    /* width: 100%;
+    height: 200%; */
+
+    width: 60%;
+    height: 5vh;
+    text-align: center;
+    border: 1px solid #2D428B;
+
+}
+
+
+
+
+#reg [type="email"], #reg [type="text"], #reg [type="date"], #reg [type="password"]{
+    /* width: 100%; */
+    /* height: 5vh; */
+    color: #2D428B;
+    font-size: 20px;
+    text-align: center;
+    border-radius: 20px;
+    border: 1px solid #2D428B;
+}
+
+
+
+
+
+#reg [type="submit"]{
+    margin-top: 5%;
+    padding: 1%;
+    line-height: 1.5;
+    width: 60%;
+    font-size: 20px;
+    border-radius: 100px;
+    color: whitesmoke;
+    text-decoration: none;
+    background-color: #2D428B;
+
+    border: 1px solid #2D428B;
+    cursor: pointer;
+}
+
+/************************* Post add page *******************************/
+
+
+#padd{
+    width: 85%;
+    text-align: center;
+    border: 3px solid #2D428B;
+    line-height: 1.5;
+    font-size: 20px;
+    padding: 3% ;
+    border-radius: 20px;
+    display: flex;
+    color: #2D428B;
+    flex-direction: column;
+    align-items:center;
+    justify-content: center;
+    row-gap: 20px;
+}
+
+#padd h2{
+    border-bottom: 3px solid #2D428B;
+    width: 30%;
+    margin-bottom: 2%;
+}
+
+
+
+#padd .q1, #padd .q2, #padd .q3, #padd .q4, #padd .q5{
+    width: 50%;
+    height: 20%;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    
+    column-gap: 30px;
+
+} 
+
+
+#padd label{
+    font-size: 24px;
+    color: #2D428B;
+    font-weight: 900;
+    width: 30%;
+    text-align: left;
+}
+
+#padd .q1 input, #padd .q2 input, #padd .q4 input, #padd .q5 input{
+    font-size: 24px;
+    color: #2D428B;
+    border-radius: 100px;
+
+
+    width: 100%;
+    height: 5vh;
+    text-align: center;
+    border: 1px solid #2D428B;
+
+}
+#padd .q3 input{
+    font-size: 24px;
+    color: #2D428B;
+    border-radius: 100px;
+
+    padding-left: 10%;
+    width: 100%;
+    height: 5vh;
+    text-align: center;
+}
+
+
+
+#padd [type="text"], #padd [type="date"]{
+    /* width: 100%; */
+    /* height: 5vh; */
+    color: #2D428B;
+    font-size: 20px;
+    text-align: center;
+    border-radius: 20px;
+    border: 1px solid #2D428B;
+}
+
+
+
+
+
+#padd [type="submit"]{
+    margin-top: 2%;
+    padding: 1%;
+    line-height: 1.5;
+    width: 60%;
+    font-size: 20px;
+    border-radius: 100px;
+    color: whitesmoke;
+    text-decoration: none;
+    background-color: #2D428B;
+
+    border: 1px solid #2D428B;
+    cursor: pointer;
+}
+
+/************************* User Edit page *******************************/
+
+
+#edit{
+    width: 85%;
+    text-align: center;
+    border: 3px solid #2D428B;
+    line-height: 1.5;
+    font-size: 20px;
+    padding: 3% ;
+    border-radius: 20px;
+    color: #2D428B;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#edit h2:nth-child(1){
+    border-bottom: 3px solid #2D428B;
+}
+#edit h2:nth-child(2){
+    padding: 0 0 2%;
+}
+#edit label{
+    font-size: 24px;
+
+}
+#edit [type="email"], #edit [type="text"], #edit [type="date"]{
+    width: 40%;
+    height: 5vh;
+    color: #2D428B;
+    font-size: 20px;
+    text-align: center;
+    border-radius: 20px;
+    border: 1px solid #2D428B;
+}
+
+
+
+
+
+#edit [type="submit"]{
+    padding: 2%;
+    line-height: 1.5;
+    /* width: fit-content;
+    height: fit-content; */
+    padding: 1% 2% 1% 2%;
+    font-size: 20px;
+    border-radius: 100px;
+    color: whitesmoke;
+    text-decoration: none;
+    background-color: #2D428B;
+    width: 40%;
+
+    border: 1px solid #2D428B;
+    cursor: pointer;
+}
+
+/************************* Post edit page *******************************/
+
+#pedit{
+    width: 85%;
+    text-align: center;
+    border: 3px solid #2D428B;
+    line-height: 1.5;
+    font-size: 20px;
+    padding: 3% ;
+    border-radius: 20px;
+    color: #2D428B;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#pedit h2:nth-child(1){
+    border-bottom: 3px solid #2D428B;
+    margin: 0 0 2%;
+}
+
+#pedit label{
+    font-size: 24px;
+
+}
+#pedit [type="text"], #pedit [type="date"]{
+    width: 30%;
+    height: 5vh;
+    color: #2D428B;
+    font-size: 16px;
+    text-align: center;
+    border-radius: 20px;
+    border: 1px solid #2D428B;
+}
+
+
+#pedit img{
+    width: 50% !important;
+    height: 50%;
+}
+
+
+
+#pedit [type="submit"]{
+    padding: 2%;
+    line-height: 1.5;
+    /* width: fit-content;
+    height: fit-content; */
+    padding: 1% 2% 1% 2%;
+    font-size: 20px;
+    border-radius: 100px;
+    color: whitesmoke;
+    text-decoration: none;
+    background-color: #2D428B;
+    width: 40%;
+
+    border: 1px solid #2D428B;
+    cursor: pointer;
+}
+
+/************************* Error page *******************************/
+#error {
+    position: relative;
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#error .v-error {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+    z-index: 1;
+}
+
+/* For Video */
+#root{
+    width: 100%;
+}
+
+/* Navigation */
+nav{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 3% 4%;
+}
+
+nav > div{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 20%;
+    padding-right: 5%;
+}
+
+nav ul{
+    position: absolute;
+}
+
+summary{
+    display: flex;
+    justify-content: flex-end;
+}
+
+summary > aside{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: blue;
+    cursor: pointer;
+}
+
+.logo{
+    width: 120px;
+    height: 120px;
+    background-color: navy;
+    border-radius: 50%;
+    cursor: pointer;
+}
